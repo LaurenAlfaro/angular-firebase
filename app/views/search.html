@@ -1,0 +1,15 @@
+<h3>Search Jobs:</h3>
+
+<a class="list-group" ng-repeat="job in jobs" ng-href="#/edit/{{job.id}}">
+    <div class="list-group-item">
+        <div class="row-picture">
+            <img class="img-circle" src="http://lorempixel.com/56/56/people/1" alt="icon" />
+        </div>
+        <div class="row-content">
+            <div class="least-content">{{job.location}}</div>
+            <h4 class="list-group-item-heading">{{job.position}}</h4>
+            <p class="list-group-item-text">{{job.description}}</p>
+        </div>
+    </div>
+    <div class="list-group-separator"></div>
+</a>
