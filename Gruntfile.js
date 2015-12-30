@@ -34,7 +34,6 @@ module.exports = function (grunt) {
             }
         },
 
-
         // JavaScript Code Sniffer, Code Syntax Verifier Tool
         jscs: {
             all: {
@@ -180,6 +179,7 @@ module.exports = function (grunt) {
             }
         },
 
+        /* Setup files to minimize */
         injector: {
              css: {
                 options: {
@@ -218,7 +218,6 @@ module.exports = function (grunt) {
             }
         },
 
-
         /* Documentation */
         jsdoc: {
             dist: {
@@ -230,6 +229,7 @@ module.exports = function (grunt) {
             }
         },
 
+        /* Load server */
         connect: {
             options: {
                 keepalive: true,
