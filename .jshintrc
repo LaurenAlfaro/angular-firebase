@@ -11,9 +11,9 @@
     "undef": true,
     "unused": true,
     "globals": {
-      "angular": false,
-      "Firebase": false,
-      "jQuery": true,
-      "grunt": true
+        "angular": false,
+        "Firebase": false,
+        "jQuery": true,
+        "grunt": true
     }
 }

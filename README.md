@@ -1,2 +1,2 @@
-# angular-firebase
-angular-firebase
+# AngularFire
+AngularFire

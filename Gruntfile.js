@@ -9,7 +9,8 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         config: {
-            connectPort: 9000,
+            devPort: 9000,
+            prodPort: 9090,
             base: '/',
             app: 'app',
             appSiteJS: '<%= config.app %>/js/site',
@@ -47,6 +48,16 @@ module.exports = function (grunt) {
             }
         },
 
+        // HTML Hint Code Verifier
+        htmlhint: {
+            options: {
+                htmlhintrc: '.htmlhintrc'
+            },
+            templates: {
+                src: ['<%= config.app %>/**/*.html']
+            }
+        },
+
         // ng-annotate tries to make the code safe for minification automatically
         // by using the Angular long form for dependency injection.
         ngAnnotate: {
@@ -81,7 +92,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= config.app %>/images',
                         dest: '<%= config.dist %>/images',
-                        src: ['images/{,*/}*.*']
+                        src: ['{,*/}*.*']
                     }
                 ]
             },
@@ -89,9 +100,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= config.app %>/fonts',
+                        cwd: '<%= config.app %>/fonts/',
                         dest: '<%= config.dist %>/fonts',
-                        src: ['fonts/{,*/}*.*']
+                        src: ['{,*/}*.*']
                     }
                 ]
             },
@@ -145,7 +156,7 @@ module.exports = function (grunt) {
             }
         },
 
-        /* CSS Minimizer */
+        // CSS Minimizer
         cssmin: {
             options: {
                 compatibility: 'ie8'
@@ -161,7 +172,7 @@ module.exports = function (grunt) {
             }
         },
 
-        /* JavaScript Minimizer */
+        // JavaScript Minimizer
         uglify: {
             options: {
                 screwIE8: false
@@ -179,7 +190,7 @@ module.exports = function (grunt) {
             }
         },
 
-        /* Setup files to minimize */
+        // Setup files to minimize
         injector: {
              css: {
                 options: {
@@ -187,7 +198,7 @@ module.exports = function (grunt) {
                     endtag: '<!-- endinjector:css -->',
                     transform: function(filePath) {
                         filePath = filePath.replace('/dist/', '').replace('.css', '.min.css');
-                        return '<link rel="stylesheet" href="' + filePath + '">';
+                        return '<link rel="stylesheet" href="' + filePath + '" />';
                     },
                     template: '<%= config.dist %>/index.html'
                 },
@@ -218,7 +229,7 @@ module.exports = function (grunt) {
             }
         },
 
-        /* Documentation */
+        // Documentation
         jsdoc: {
             dist: {
                 src: ['<%= config.appSiteJS %>/**/*.js', '!<%= config.appSiteJS %>/**/*.spec.js'],
@@ -229,19 +240,28 @@ module.exports = function (grunt) {
             }
         },
 
-        /* Load server */
+        // Load server
         connect: {
             options: {
-                keepalive: true,
-                port: '<%= config.connectPort %>',
                 hostname: 'localhost',
                 livereload: 35729,
                 base: '<%= config.dist %>'
             },
             livereload: {
                 options: {
+                    keepalive: false,
+                    port: '<%= config.devPort %>',
                     open: {
-                        target: 'http://localhost:<%= config.connectPort %>/'
+                        target: 'http://localhost:<%= config.devPort %>/'
+                    }
+                }
+            },
+            server: {
+                options: {
+                    keepalive: true,
+                    port: '<%= config.prodPort %>',
+                    open: {
+                        target: 'http://localhost:<%= config.prodPort %>/'
                     }
                 }
             }
@@ -254,6 +274,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: [
+                    'Gruntfile.js',
                     '<%= config.appSiteJS %>/{,*/}*.js',
                     '<%= config.appVendorJS %>/{,*/}*.js'
                 ],
@@ -282,7 +303,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= config.app %>/{,*/}*.html'
                 ],
-                tasks: ['copy:htmls']
+                tasks: ['build:htmls']
             },
             livereload: {
                 options: {
@@ -303,14 +324,15 @@ module.exports = function (grunt) {
 
     // Helper Tasks
     grunt.registerTask('lint', ['jshint', 'jscs']);
-    grunt.registerTask('build:static', ['copy:images', 'copy:fonts', 'copy:htmls']);
+    grunt.registerTask('build:htmls', ['htmlhint', 'copy:htmls']);
+    grunt.registerTask('build:static', ['copy:images', 'copy:fonts']);
     grunt.registerTask('build:js', ['lint', 'concat:js', 'ngAnnotate']);
     grunt.registerTask('build:css', ['concat:css']);
     grunt.registerTask('build:optimize', ['cssmin', 'uglify', 'injector']);
 
     // User Tasks
-    grunt.registerTask('build', ['clean:dist', 'build:js', 'build:css', 'build:static']);
+    grunt.registerTask('build', ['clean:dist', 'build:js', 'build:css', 'build:htmls', 'build:static']);
     grunt.registerTask('build:prod', ['build', 'build:optimize', 'jsdoc', 'clean:tmp']);
-    grunt.registerTask('serve', ['build', 'connect', 'watch']);
-    grunt.registerTask('serve:prod', ['build:prod', 'connect']);
+    grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
+    grunt.registerTask('serve:prod', ['build:prod', 'connect:server']);
 };

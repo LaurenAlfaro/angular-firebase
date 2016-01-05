@@ -1,7 +1,7 @@
 {
-    "name": "angular_firebase",
+    "name": "AngularFire",
     "version": "1.0.0",
-    "description": "Project development with Angular and Firebase",
+    "description": "Project development with AngularJS and Firebase",
     "email": "roberto.ramosv@gmail.com",
     "repository": {
         "type": "git",
@@ -21,6 +21,7 @@
         "grunt-ng-annotate": "^0.9.2",
         "grunt-injector": "^0.5.4",
         "grunt-jsdoc": "^1.1.0",
+        "grunt-htmlhint": "^0.9.12",
         "load-grunt-tasks": "^3.1.0",
         "time-grunt": "^1.0.0",
         "jshint-stylish": "^1.0.0",

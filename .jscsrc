@@ -99,7 +99,8 @@
     },
     "VariableNamingConventions": {
         "allowCase": [
-            "camel"
+            "camel",
+            "pascal"
         ],
         "allowRepeating": true,
         "allowNumbers": true

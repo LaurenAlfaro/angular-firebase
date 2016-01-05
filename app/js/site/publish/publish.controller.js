@@ -1,10 +1,14 @@
-angular.module('fireJobApp.publish').controller('PublishCtrl', function($scope, FBURL, $firebaseArray) {
+angular.module('AngularFire.publish').controller('PublishCtrl', function($scope, $location, Jobs) {
     'use strict';
 
-    var ref = new Firebase(FBURL);
-    $scope.jobs = $firebaseArray(ref.child('jobs'));
+    $scope.job = {};
 
     $scope.publishJob = function(job) {
-        $scope.jobs.$add(job);
+        Jobs.publishJob(job).then(function() {
+            console.log('Job was published');
+            $location.path('/search');
+        }, function (error) {
+            console.log(error);
+        });
     };
 });

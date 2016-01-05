@@ -1,6 +1,5 @@
-angular.module('fireJobApp.search').controller('SearchCtrl', function($scope, FBURL, $firebaseArray) {
+angular.module('AngularFire.search').controller('SearchCtrl', function($scope, Jobs) {
     'use strict';
 
-    var ref = new Firebase(FBURL);
-    $scope.jobs = $firebaseArray(ref.child('jobs'));
+    $scope.jobs = Jobs.all;
 });

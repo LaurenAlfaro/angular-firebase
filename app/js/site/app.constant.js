@@ -1,3 +1,3 @@
-angular.module('fireJobApp').constant(
-    'FBURL', 'https://firejob-roberto-app.firebaseio.com/'
+angular.module('AngularFire').constant(
+    'FBURL', 'https://rrv-angular-firebase.firebaseio.com/'
 );

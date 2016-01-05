@@ -1,1 +1,1 @@
-angular.module('fireJobApp.edit', []);
+angular.module('AngularFire.edit', []);

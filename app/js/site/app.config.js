@@ -1,22 +1,62 @@
-angular.module('fireJobApp').config(function($routeProvider) {
+function authenticate($q, Auth, $location, $timeout) {
+    'use strict';
+
+    var deferred = $q.defer();
+
+    if (Auth.isAuthenticated()) {
+        deferred.resolve();
+    } else {
+        $timeout(function () {
+            $location.path('/');
+        });
+        deferred.reject();
+    }
+
+    return deferred.promise;
+}
+
+angular.module('AngularFire').config(function($routeProvider) {
     'use strict';
 
     $routeProvider
         .when('/', {
-            templateUrl: 'views/main.html',
-            controller: 'MainCtrl'
+            templateUrl: 'views/search.html',
+            controller: 'SearchCtrl'
         })
         .when('/publish', {
             templateUrl: 'views/publish.html',
-            controller: 'PublishCtrl'
+            controller: 'PublishCtrl',
+            resolve: {
+                authenticate: authenticate
+            }
         })
-        .when('/edit', {
+        .when('/edit/:jobId', {
             templateUrl: 'views/edit.html',
-            controller: 'EditCtrl'
+            controller: 'EditCtrl',
+            resolve: {
+                authenticate: authenticate
+            }
         })
-        .when('/search', {
-            templateUrl: 'views/search.html',
-            controller: 'SearchCtrl'
+        .when('/detail/:jobId', {
+            templateUrl: 'views/detail.html',
+            controller: 'DetailCtrl',
+            resolve: {
+                authenticate: authenticate
+            }
+        })
+        .when('/delete/:jobId', {
+            templateUrl: 'views/delete.html',
+            controller: 'DeleteCtrl',
+            resolve: {
+                authenticate: authenticate
+            }
+        })        .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'UserCtrl'
+        })
+        .when('/register', {
+            templateUrl: 'views/register.html',
+            controller: 'UserCtrl'
         })
         .otherwise({
             redirectTo: '/'

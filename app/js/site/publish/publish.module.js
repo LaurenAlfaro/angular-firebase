@@ -1,1 +1,1 @@
-angular.module('fireJobApp.publish', []);
+angular.module('AngularFire.publish', []);

@@ -1,10 +1,13 @@
-angular.module('fireJobApp', [
+angular.module('AngularFire', [
     'ngAnimate',
     'ngResource',
     'ngRoute',
     'firebase',
-    'fireJobApp.edit',
-    'fireJobApp.main',
-    'fireJobApp.publish',
-    'fireJobApp.search'
+    'AngularFire.edit',
+    'AngularFire.publish',
+    'AngularFire.search',
+    'AngularFire.detail',
+    'AngularFire.delete',
+    'AngularFire.user',
+    'AngularFire.common'
 ]);

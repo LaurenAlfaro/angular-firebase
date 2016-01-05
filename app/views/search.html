@@ -1,15 +1,18 @@
-<h3>Search Jobs:</h3>
-
-<a class="list-group" ng-repeat="job in jobs" ng-href="#/edit/{{job.id}}">
-    <div class="list-group-item">
-        <div class="row-picture">
-            <img class="img-circle" src="http://lorempixel.com/56/56/people/1" alt="icon" />
-        </div>
-        <div class="row-content">
-            <div class="least-content">{{job.location}}</div>
-            <h4 class="list-group-item-heading">{{job.position}}</h4>
-            <p class="list-group-item-text">{{job.description}}</p>
-        </div>
+<div class="col-sm-10 col-sm-offset-1">
+    <h3>Search Jobs</h3>
+    <div class="row">
+        <a class="list-group" ng-repeat="job in jobs" ng-href="#/detail/{{job.$id}}">
+            <div class="list-group-item">
+                <div class="row-picture">
+                    <img ng-src="{{job.gravatar}}" class="img-circle job-logo" />
+                </div>
+                <div class="row-content">
+                    <div class="least-content">{{job.date | date :'MM/dd/yyyy'}}</div>
+                    <h4 class="list-group-item-heading">{{job.position}}</h4>
+                    <p class="list-group-item-text">{{job.description}}</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+        </a>
     </div>
-    <div class="list-group-separator"></div>
-</a>
+</div>

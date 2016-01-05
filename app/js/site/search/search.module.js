@@ -1,1 +1,1 @@
-angular.module('fireJobApp.search', []);
+angular.module('AngularFire.search', []);

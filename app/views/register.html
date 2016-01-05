@@ -1,0 +1,48 @@
+<div class="col-sm-6 col-sm-offset-3">
+    <h3>Register</h3>
+    <div class="row ng-cloak">
+        <form class="form-auth" name="form" novalidate ng-submit="register(user)">
+            <div class="col-sm-12">
+                <div class="form-group" ng-class="{'has-error': hasError('name')}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                        <input type="text" name="name" class="form-control" placeholder="Name" required ng-model="user.name" />
+                   </div>
+                    <span class="help-block" ng-if="hasError('name')">
+                        <span ng-show="form.name.$error.required">Name is required.</span>
+                    </span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': hasError('email')}">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></div>
+                        <input type="email" name="email" name="user.email" class="form-control" placeholder="Email" required ng-model="user.email" />
+                    </div>
+                    <span class="help-block" ng-if="hasError('email')">
+                        <span ng-show="form.email.$error.required">Email is required.</span>
+                        <span ng-show="form.email.$error.email">Invalid email address.</span>
+                    </span>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': hasError('password')}">
+                     <div class="input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required ng-model="user.password" />
+                    </div>
+                    <span class="help-block" ng-if="hasError('password')">
+                        <span ng-show="form.password.$error.required">Password is required.</span>
+                    </span>
+                </div>
+                <div class="form-group has-error">
+                    <span class="help-block">
+                        <span>{{error.message}}</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
