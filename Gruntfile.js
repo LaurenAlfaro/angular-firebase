@@ -82,6 +82,12 @@ module.exports = function (grunt) {
                     src: ['<%= config.tmp %>']
                 }]
             },
+            docs: {
+                files: [{
+                    dot: true,
+                    src: ['<%= config.docs %>']
+                }]
+            },
         },
 
         // Copies remaining files to places other tasks can use
@@ -230,14 +236,14 @@ module.exports = function (grunt) {
         },
 
         // Documentation
-        jsdoc: {
-            dist: {
-                src: ['<%= config.appSiteJS %>/**/*.js', '!<%= config.appSiteJS %>/**/*.spec.js'],
-                options: {
-                    destination: '<%= config.docs %>',
-                    readme: './README.md'
-                }
-            }
+        ngdocs: {
+            options: {
+                scripts: ['angular.js', '../src.js'],
+                html5Mode: false,
+                title: 'AngularFire Documentation',
+                dest: '<%= config.docs %>'
+            },
+            all: ['<%= config.appSiteJS %>/**/*.js', '!<%= config.appSiteJS %>/**/*.spec.js']
         },
 
         // Load server
@@ -253,6 +259,15 @@ module.exports = function (grunt) {
                     port: '<%= config.devPort %>',
                     open: {
                         target: 'http://localhost:<%= config.devPort %>/'
+                    }
+                }
+            },
+            dev: {
+                options: {
+                    keepalive: true,
+                    port: '<%= config.prodPort %>',
+                    open: {
+                        target: 'http://localhost:<%= config.prodPort %>/'
                     }
                 }
             },
@@ -324,6 +339,7 @@ module.exports = function (grunt) {
 
     // Helper Tasks
     grunt.registerTask('lint', ['jshint', 'jscs']);
+    grunt.registerTask('docs', ['clean:docs', 'ngdocs']);
     grunt.registerTask('build:htmls', ['htmlhint', 'copy:htmls']);
     grunt.registerTask('build:static', ['copy:images', 'copy:fonts']);
     grunt.registerTask('build:js', ['lint', 'concat:js', 'ngAnnotate']);
@@ -332,7 +348,7 @@ module.exports = function (grunt) {
 
     // User Tasks
     grunt.registerTask('build', ['clean:dist', 'build:js', 'build:css', 'build:htmls', 'build:static']);
-    grunt.registerTask('build:prod', ['build', 'build:optimize', 'jsdoc', 'clean:tmp']);
-    grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
-    grunt.registerTask('serve:prod', ['build:prod', 'connect:server']);
+    grunt.registerTask('build:prod', ['build', 'build:optimize', 'docs', 'clean:tmp']);
+    grunt.registerTask('serve', ['build:prod', 'connect:server']);
+    grunt.registerTask('serve:dev', ['build', 'connect:livereload', 'watch']);
 };
