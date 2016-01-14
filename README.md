@@ -1,6 +1,10 @@
 # AngularFire
 Project implemented with Angular and Firebase.
 
+Version: `1.0.2`
+
+Last Updated: `01/14/2016`
+
 ## Dependencies
 
 * install [node](http://nodejs.org)
