@@ -10,16 +10,18 @@ module.exports = function (grunt) {
     grunt.initConfig({
         config: {
             'port': 9000,
-            'prod_port': 9090,
+            'port_prod': 9090,
             'base': 'dist'
         },
 
         dirs: {
             'app': 'app',
-            'app_site_js': '<%= dirs.app %>/js/site',
-            'app_vendor_js': '<%= dirs.app %>/js/vendor',
-            'app_site_css': '<%= dirs.app %>/css/site',
-            'app_vendor_css': '<%= dirs.app %>/css/vendor',
+            'app_js': '<%= dirs.app %>/js',
+            'app_js_site': '<%= dirs.app_js %>/site',
+            'app_js_vendor': '<%= dirs.app_js %>/vendor',
+            'app_css': '<%= dirs.app %>/css',
+            'app_css_site': '<%= dirs.app_css %>/site',
+            'app_css_vendor': '<%= dirs.app_css %>/vendor',
             'dist': 'dist',
             'dist_js': '<%= dirs.dist %>/js',
             'dist_css': '<%= dirs.dist %>/css',
@@ -41,7 +43,10 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             files: {
-                src: ['Gruntfile.js', '<%= dirs.app_site_js %>/**/*.js']
+                src: [
+                    'Gruntfile.js',
+                    '<%= dirs.app_js_site %>/{,**/}*.js'
+                ]
             }
         },
 
@@ -53,7 +58,10 @@ module.exports = function (grunt) {
                     reportFull: true
                 },
                 files: {
-                    src: ['Gruntfile.js', '<%= dirs.app_site_js %>']
+                    src: [
+                        'Gruntfile.js',
+                        '<%= dirs.app_js_site %>'
+                    ]
                 }
             }
         },
@@ -64,7 +72,7 @@ module.exports = function (grunt) {
                 htmlhintrc: '.htmlhintrc'
             },
             templates: {
-                src: ['<%= dirs.app %>/**/*.html']
+                src: ['<%= dirs.app %>/{,**/}*.html']
             }
         },
 
@@ -85,7 +93,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= dirs.app %>/images',
                         dest: '<%= dirs.dist %>/images',
-                        src: ['{,*/}*.*']
+                        src: ['{,**/}*.*']
                     }
                 ]
             },
@@ -95,7 +103,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= dirs.app %>/fonts/',
                         dest: '<%= dirs.dist %>/fonts',
-                        src: ['{,*/}*.*']
+                        src: ['{,**/}*.*']
                     }
                 ]
             },
@@ -105,7 +113,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= dirs.app %>',
                         dest: '<%= dirs.dist %>',
-                        src: ['*.html', 'views/{,*/}*.html']
+                        src: ['*.html', 'views/{,**/}*.html']
                     }
                 ]
             }
@@ -116,34 +124,35 @@ module.exports = function (grunt) {
             js: {
                 files: {
                     '<%= dirs.dist_js %>/ie-shims.js': [
-                        '<%= dirs.app_vendor_js %>/html5shiv.min.js',
-                        '<%= dirs.app_vendor_js %>/respond.js'
+                        '<%= dirs.app_js_vendor %>/html5shiv.min.js',
+                        '<%= dirs.app_js_vendor %>/respond.min.js'
                     ],
                     '<%= dirs.dist_js %>/libraries.js': [
-                        '<%= dirs.app_vendor_js %>/jquery/jquery.min.js',
-                        '<%= dirs.app_vendor_js %>/bootstrap/bootstrap.min.js',
-                        '<%= dirs.app_vendor_js %>/angular/angular.min.js',
-                        '<%= dirs.app_vendor_js %>/angular/angular-animate.min.js',
-                        '<%= dirs.app_vendor_js %>/angular/angular-resource.min.js',
-                        '<%= dirs.app_vendor_js %>/angular/angular-route.min.js',
-                        '<%= dirs.app_vendor_js %>/firebase/firebase.js',
-                        '<%= dirs.app_vendor_js %>/firebase/angularfire.min.js'
+                        '<%= dirs.app_js_vendor %>/jquery/jquery.min.js',
+                        '<%= dirs.app_js_vendor %>/bootstrap/bootstrap.min.js',
+                        '<%= dirs.app_js_vendor %>/angular/angular.min.js',
+                        '<%= dirs.app_js_vendor %>/angular/angular-animate.min.js',
+                        '<%= dirs.app_js_vendor %>/angular/angular-resource.min.js',
+                        '<%= dirs.app_js_vendor %>/angular/angular-route.min.js',
+                        '<%= dirs.app_js_vendor %>/firebase/firebase.min.js',
+                        '<%= dirs.app_js_vendor %>/firebase/angularfire.min.js'
                     ],
                     '<%= dirs.dist_js %>/site.js': [
-                        '<%= dirs.app_site_js %>/*/**/*.module.js',
-                        '<%= dirs.app_site_js %>/*/**/*.js',
-                        '<%= dirs.app_site_js %>/app.js',
-                        '<%= dirs.app_site_js %>/app*.js'
+                        '<%= dirs.app_js_site %>/*/{,**/}*.module.js',
+                        '<%= dirs.app_js_site %>/*/{,**/}*.js',
+                        '<%= dirs.app_js_site %>/app.js',
+                        '<%= dirs.app_js_site %>/{,**/}app.*.js',
+                        '!<%= dirs.app_js_site %>/*/{,**/}*.spec.js'
                     ]
                 }
             },
             css: {
                 files: {
                     '<%= dirs.dist_css %>/site.css': [
-                        '<%= dirs.app_site_css %>/**/*.css'
+                        '<%= dirs.app_css_site %>/{,**/}*.css'
                     ],
                     '<%= dirs.dist_css %>/libraries.css': [
-                        '<%= dirs.app_vendor_css %>/**/*.css'
+                        '<%= dirs.app_css_vendor %>/{,**/}*.css'
                     ]
                 }
             }
@@ -158,7 +167,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= dirs.dist_css %>',
-                    src: ['**/*.css', '!**/*.min.css'],
+                    src: ['{,**/}*.css', '!{,**/}*.min.css'],
                     dest: '<%= dirs.dist_css %>',
                     ext: '.min.css'
                 }]
@@ -175,7 +184,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: '<%= dirs.dist_js %>',
-                        src: ['**/*.js', '!**/*.min.js'],
+                        src: ['{,**/}*.js', '!{,**/}*.min.js'],
                         dest: '<%= dirs.dist_js %>',
                         ext: '.min.js'
                     }
@@ -197,8 +206,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     '<%= dirs.dist %>/index.html': [
-                        '<%= dirs.dist_css %>/**/*.css',
-                        '!<%= dirs.dist_css %>/**/*.min.css'
+                        '<%= dirs.dist_css %>/{,**/}*.css',
+                        '!<%= dirs.dist_css %>/{,**/}*.min.css'
                     ]
                 }
             },
@@ -214,9 +223,9 @@ module.exports = function (grunt) {
                 },
                 files: {
                     '<%= dirs.dist %>/index.html': [
-                        '<%= dirs.dist_js %>/**/*.js',
-                        '!<%= dirs.dist_js %>/**/*.min.js',
-                        '!<%= dirs.dist_js %>/**/ie-shims.js'
+                        '<%= dirs.dist_js %>/{,**/}*.js',
+                        '!<%= dirs.dist_js %>/{,**/}*.min.js',
+                        '!<%= dirs.dist_js %>/{,**/}ie-shims.js'
                     ]
                 }
             }
@@ -226,9 +235,13 @@ module.exports = function (grunt) {
         ngdocs: {
             options: {
                 title: 'AngularFire Documentation',
-                dest: '<%= dirs.docs %>'
+                dest: '<%= dirs.docs %>',
+                editLink: false
             },
-            all: ['<%= dirs.app_site_js %>/**/*.js', '!<%= dirs.app_site_js %>/**/*.spec.js']
+            all: [
+                '<%= dirs.app_js_site %>/{,**/}*.js',
+                '!<%= dirs.app_js_site %>/{,**/}*.spec.js'
+            ]
         },
 
         // Connect server
@@ -250,7 +263,7 @@ module.exports = function (grunt) {
             },
             prod: {
                 options: {
-                    port: '<%= config.prod_port %>',
+                    port: '<%= config.port_prod %>',
                     open: {
                         target: 'http://localhost:<%= config.prod_port %>/'
                     }
@@ -266,33 +279,31 @@ module.exports = function (grunt) {
             js: {
                 files: [
                     'Gruntfile.js',
-                    '<%= dirs.app_site_js %>/{,*/}*.js',
-                    '<%= dirs.app_vendor_js %>/{,*/}*.js'
+                    '<%= dirs.app_js %>/{,**/}*.js'
                 ],
                 tasks: ['build:js']
             },
             css: {
                 files: [
-                    '<%= dirs.app_site_css %>/{,*/}*.css',
-                    '<%= dirs.app_vendor_css %>/{,*/}*.css'
+                    '<%= dirs.app_css %>/{,**/}*.css'
                 ],
                 tasks: ['build:css']
             },
             images: {
                 files: [
-                    '<%= dirs.app %>/images/{,*/}*.*'
+                    '<%= dirs.app %>/images/{,**/}*.*'
                 ],
                 tasks: ['copy:images']
             },
             fonts: {
                 files: [
-                    '<%= dirs.app %>/fonts/{,*/}*.*'
+                    '<%= dirs.app %>/fonts/{,**/}*.*'
                 ],
                 tasks: ['copy:fonts']
             },
             htmls: {
                 files: [
-                    '<%= dirs.app %>/{,*/}*.html'
+                    '<%= dirs.app %>/{,**/}*.html'
                 ],
                 tasks: ['build:htmls']
             },
@@ -301,13 +312,11 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
-                    '<%= dirs.app_site_js %>/{,*/}*.js',
-                    '<%= dirs.app_vendor_js %>/{,*/}*.js',
-                    '<%= dirs.app_site_css %>/{,*/}*.css',
-                    '<%= dirs.app_vendor_css %>/{,*/}*.css',
-                    '<%= dirs.app %>/images/{,*/}*.*',
-                    '<%= dirs.app %>/fonts/{,*/}*.*',
-                    '<%= dirs.app %>/{,*/}*.html'
+                    '<%= dirs.app_js %>/{,**/}*.js',
+                    '<%= dirs.app_css %>/{,**/}*.css',
+                    '<%= dirs.app %>/images/{,**/}*.*',
+                    '<%= dirs.app %>/fonts/{,**/}*.*',
+                    '<%= dirs.app %>/{,**/}*.html'
                 ]
             }
         }

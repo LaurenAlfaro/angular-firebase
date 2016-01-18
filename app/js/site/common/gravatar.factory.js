@@ -1,5 +1,12 @@
 /*jslint bitwise: true, newcap: true */
-angular.module('AngularFire.common').factory('Gravatar', function() {
+
+/**
+ * @ngdoc service
+ * @name AngularFire.common.Gravatar
+ * @description
+ * Service for get Gravatar.
+ */
+angular.module('AngularFire.common').factory('GravatarService', function() {
     'use strict';
 
     return {

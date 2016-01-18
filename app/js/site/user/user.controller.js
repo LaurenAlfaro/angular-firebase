@@ -1,4 +1,11 @@
-angular.module('AngularFire.user').controller('UserCtrl', function($scope, FBURL, $firebaseArray, $location, $timeout, Auth) {
+/*
+ * @ngdoc controller
+ * @name AngularFire.controller.UserCtrl
+ *
+ * @description
+ * Controller for UserCtrl
+ */
+angular.module('AngularFire.user').controller('UserCtrl', function($scope, $log, FBURL, $firebaseArray, $location, $timeout, AuthService) {
     'use strict';
 
     $scope.user = {};
@@ -12,8 +19,8 @@ angular.module('AngularFire.user').controller('UserCtrl', function($scope, FBURL
         $scope.error = false;
 
         if ($scope.form.$valid) {
-            Auth.login(user).then(function() {
-                console.log('Login was successful');
+            AuthService.login(user).then(function() {
+                $log.log('Login was successful');
                 $location.path('/');
             }, function (error) {
                 $scope.error = error;
@@ -29,8 +36,8 @@ angular.module('AngularFire.user').controller('UserCtrl', function($scope, FBURL
         $scope.error = false;
 
         if ($scope.form.$valid) {
-            Auth.register(user).then(function() {
-                console.log('Register was successful');
+            AuthService.register(user).then(function() {
+                $log.log('Register was successful');
                 $location.path('/');
             }, function (error) {
                 $scope.error = error;

@@ -3,11 +3,8 @@ angular.module('AngularFire', [
     'ngResource',
     'ngRoute',
     'firebase',
-    'AngularFire.edit',
-    'AngularFire.publish',
-    'AngularFire.search',
-    'AngularFire.detail',
-    'AngularFire.delete',
+    'AngularFire.common',
+    'AngularFire.router',
     'AngularFire.user',
-    'AngularFire.common'
+    'AngularFire.jobs'
 ]);

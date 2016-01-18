@@ -1,4 +1,14 @@
-angular.module('AngularFire.common').factory('Auth', function(FBURL, $firebaseAuth, $firebaseObject, Gravatar) {
+/**
+ * @ngdoc service
+ * @name AngularFire.common.AuthService
+ * @requires AngularFire.common.FBURL
+ * @requires $firebaseAuth
+ * @requires $firebaseObject
+ * @requires AngularFire.common.GravatarService
+ * @description
+ * Service for user authenticate.
+ */
+angular.module('AngularFire.common').factory('AuthService', function(FBURL, $firebaseAuth, $firebaseObject, GravatarService) {
     'use strict';
 
     var ref = new Firebase(FBURL),
@@ -9,7 +19,7 @@ angular.module('AngularFire.common').factory('Auth', function(FBURL, $firebaseAu
                 var profile = {
                     name: user.name,
                     email: user.email,
-                    gravatar: Gravatar.getGravatar(user.email, 40)
+                    gravatar: GravatarService.getGravatar(user.email, 40)
                 };
 
                 ref.onAuth(function(AuthData) {

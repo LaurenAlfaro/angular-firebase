@@ -1,9 +1,19 @@
-angular.module('AngularFire.common').factory('Jobs', function(FBURL, $firebaseArray, $firebaseObject, Auth) {
+/**
+ * @ngdoc service
+ * @name AngularFire.common.JobsService
+ * @requires FBURL
+ * @requires $firebaseArray
+ * @requires $firebaseObject
+ * @requires AngularFire.common.AuthService
+ * @description
+ * Service for manipulate Jobs.
+ */
+angular.module('AngularFire.common').factory('JobsService', function(FBURL, $firebaseArray, $firebaseObject, AuthService) {
     'use strict';
 
     var ref = new Firebase(FBURL),
         jobs = $firebaseArray(ref.child('jobs')),
-        user = Auth.userProfile,
+        user = AuthService.userProfile,
         fac = {
             all: jobs,
             getJob: function(jobId) {

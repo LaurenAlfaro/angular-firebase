@@ -9,10 +9,10 @@
     "node": true,
     "strict": true,
     "undef": true,
-    "unused": true,
+    "unused": "vars",
     "globals": {
-        "angular": false,
-        "Firebase": false,
+        "angular": true,
+        "Firebase": true,
         "jQuery": true,
         "grunt": true
     }
