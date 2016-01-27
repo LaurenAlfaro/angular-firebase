@@ -2,14 +2,23 @@
 
 /**
  * @ngdoc service
- * @name AngularFire.common.Gravatar
+ * @name ngFireCommon.GravatarService
  * @description
  * Service for get Gravatar.
  */
-angular.module('AngularFire.common').factory('GravatarService', function() {
+angular.module('ngFireCommon').factory('GravatarService', function() {
     'use strict';
 
     return {
+        /**
+         * @ngdoc method
+         * @name ngFireCommon.AuthService#getGravatar
+         * @methodOf ngFireCommon.GravatarService
+         * @description
+         * This method get gravatar if it exist or create a new one.
+         * @param {string} email Email.
+         * @param {integer} size Number of characters.
+         */
         getGravatar: function (email, size) {
             var MD5;
             email = email.toLowerCase();

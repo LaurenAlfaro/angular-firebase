@@ -1,11 +1,15 @@
-/*
+/**
  * @ngdoc controller
- * @name AngularFire.controller.UserCtrl
- *
+ * @name ngFireUser.UserCtrl:UserCtrl
+ * @requires $scope
+ * @requires $log
+ * @requires $location
+ * @requires $timeout
+ * @requires ngFireCommon.AuthService
  * @description
- * Controller for UserCtrl
+ * This is the controller for UserCtrl.
  */
-angular.module('AngularFire.user').controller('UserCtrl', function($scope, $log, FBURL, $firebaseArray, $location, $timeout, AuthService) {
+angular.module('ngFireUser').controller('UserCtrl', function($scope, $log, $location, $timeout, AuthService) {
     'use strict';
 
     $scope.user = {};

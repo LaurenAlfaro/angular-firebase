@@ -1,4 +1,14 @@
-angular.module('AngularFire.jobs').controller('PublishCtrl', function($scope, $log, $location, JobsService) {
+/**
+ * @ngdoc controller
+ * @name ngFireJobs.PublishCtrl:PublishCtrl
+ * @requires $scope
+ * @requires $log
+ * @requires $location
+ * @requires ngFireCommon.JobsService
+ * @description
+ * This is the controller for PublishCtrl.
+ */
+angular.module('ngFireJobs').controller('PublishCtrl', function($scope, $log, $location, JobsService) {
     'use strict';
 
     $scope.job = {};

@@ -1,4 +1,15 @@
-angular.module('AngularFire.jobs').controller('EditCtrl', function($scope, $log, $location, $routeParams, JobsService) {
+/**
+ * @ngdoc controller
+ * @name ngFireJobs.EditCtrl:EditCtrl
+ * @requires $scope
+ * @requires $log
+ * @requires $location
+ * @requires $routeParams
+ * @requires ngFireCommon.JobsService
+ * @description
+ * This is the controller for EditCtrl.
+ */
+angular.module('ngFireJobs').controller('EditCtrl', function($scope, $log, $location, $routeParams, JobsService) {
     'use strict';
 
     if ($routeParams.jobId) {

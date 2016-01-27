@@ -1,9 +1,9 @@
 # AngularFire
 Project implemented with Angular and Firebase.
 
-Version: `1.0.2`
+Version: `1.0.3`
 
-Last Updated: `01/14/2016`
+Last Updated: `01/27/2016`
 
 ## Dependencies
 
@@ -13,4 +13,16 @@ Last Updated: `01/14/2016`
 
 ## Build and run
 
-Run `grunt serve` and open http://localhost:9090 in your browser.
+### Production environment
+
+Run `grunt serve` and open http://localhost:9000 in your browser.
+
+
+### Development environment
+
+Run `grunt serve:dev` and open http://localhost:9001 in your browser.
+
+
+### Documentation
+
+Run `grunt docs` and open http://localhost:9002 in your browser.

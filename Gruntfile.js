@@ -10,8 +10,8 @@ module.exports = function (grunt) {
     grunt.initConfig({
         config: {
             'port': 9000,
-            'port_prod': 9090,
-            'base': 'dist'
+            'port_prod': 9001,
+            'port_docs': 9002
         },
 
         dirs: {
@@ -234,7 +234,7 @@ module.exports = function (grunt) {
         // Documentation
         ngdocs: {
             options: {
-                title: 'AngularFire Documentation',
+                title: 'Angular Firebase Documentation',
                 dest: '<%= dirs.docs %>',
                 editLink: false
             },
@@ -249,7 +249,7 @@ module.exports = function (grunt) {
             options: {
                 keepalive: true,
                 hostname: 'localhost',
-                base: '<%= config.base %>'
+                base: '<%= dirs.dist %>'
             },
             livereload: {
                 options: {
@@ -265,7 +265,16 @@ module.exports = function (grunt) {
                 options: {
                     port: '<%= config.port_prod %>',
                     open: {
-                        target: 'http://localhost:<%= config.prod_port %>/'
+                        target: 'http://localhost:<%= config.port_prod %>/'
+                    }
+                }
+            },
+            docs: {
+                options: {
+                    port: '<%= config.port_docs %>',
+                    base: '<%= dirs.docs %>',
+                    open: {
+                        target: 'http://localhost:<%= config.port_docs %>/'
                     }
                 }
             }
@@ -333,7 +342,8 @@ module.exports = function (grunt) {
 
     // User Tasks
     grunt.registerTask('build', ['clean:dist', 'build:js', 'build:css', 'build:htmls', 'build:static']);
-    grunt.registerTask('build:prod', ['build', 'build:optimize', 'docs', 'clean:tmp']);
+    grunt.registerTask('build:prod', ['build', 'build:optimize', 'clean:tmp']);
     grunt.registerTask('serve', ['build:prod', 'connect:prod']);
     grunt.registerTask('serve:dev', ['build', 'connect:livereload', 'watch']);
+    grunt.registerTask('serve:docs', ['docs', 'connect:docs']);
 };
