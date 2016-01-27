@@ -13,16 +13,16 @@ Last Updated: `01/27/2016`
 
 ## Build and run
 
-### Production environment
+#### Production environment
 
 Run `grunt serve` and open http://localhost:9000 in your browser.
 
 
-### Development environment
+#### Development environment
 
 Run `grunt serve:dev` and open http://localhost:9001 in your browser.
 
 
-### Documentation
+#### Documentation
 
-Run `grunt docs` and open http://localhost:9002 in your browser.
+Run `serve:docs` and open http://localhost:9002 in your browser.
