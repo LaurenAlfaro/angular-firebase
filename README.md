@@ -1,4 +1,4 @@
-# AngularFire
+# Angular - Firebase
 Project implemented with Angular and Firebase.
 
 Version: `1.0.3`
