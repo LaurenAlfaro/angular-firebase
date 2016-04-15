@@ -163,7 +163,7 @@ module.exports = function (grunt) {
             options: {
                 compatibility: 'ie8'
             },
-            css: {
+            build: {
                 files: [{
                     expand: true,
                     cwd: '<%= dirs.dist_css %>',
@@ -177,9 +177,10 @@ module.exports = function (grunt) {
         // JavaScript Minimizer
         uglify: {
             options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                 screwIE8: false
             },
-            js: {
+            build: {
                 files: [
                     {
                         expand: true,
